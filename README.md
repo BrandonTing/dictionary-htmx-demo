@@ -47,3 +47,16 @@ clean up binary from the last build
 ```bash
 make clean
 ```
+
+## Sharing Topic
+### Htmx
+- Concept
+- Attributes
+  - hx-get/hx-post/hx-put/hx-delete
+  - hx-target
+  - hx-swap
+  - hx-swap-oob
+  - loading indicator
+- When
+  - Server Driven Projects -> CMS/Dashboards...
+  - Internal tools
