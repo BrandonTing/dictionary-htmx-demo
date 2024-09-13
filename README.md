@@ -60,3 +60,7 @@ make clean
 - When
   - Server Driven Projects -> CMS/Dashboards...
   - Internal tools
+
+### Steps
+- Install templ to compile templ files: `go install github.com/a-h/templ/cmd/templ@latest`
+- 

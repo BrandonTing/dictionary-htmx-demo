@@ -8,8 +8,6 @@ import (
 	"time"
 
 	_ "github.com/joho/godotenv/autoload"
-
-	"dictionary-htmx-demo/internal/database"
 )
 
 type Server struct {
@@ -20,6 +18,7 @@ type Server struct {
 
 func NewServer() *http.Server {
 	port, _ := strconv.Atoi(os.Getenv("PORT"))
+	print(port)
 	NewServer := &Server{
 		port: port,
 
