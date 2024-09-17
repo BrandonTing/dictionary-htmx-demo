@@ -1,0 +1,12 @@
+package list
+
+import (
+  "dictionary-htmx-demo/cmd/web"
+	"dictionary-htmx-demo/cmd/web/tabs"
+)
+
+templ List() {
+	@web.Base() {
+    @tabs.Tabs("/list")
+	}
+}

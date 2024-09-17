@@ -1,0 +1,16 @@
+package tabs
+
+templ Tabs(activeTab string) {
+  <div class="flex items-center justify-center w-full h-10 gap-5 text-black bg-gray-300" id="tabContainer">
+    @Tab("單字列表", activeTab, "/list")
+    @Tab("測驗", activeTab, "/test")
+  </div>
+}
+
+templ Tab(label string, activeTab string, url string) {
+  if activeTab == url {
+    <span class="text-green-700 border-b border-b-green-700">{label}</span>
+  } else {
+    <button hx-get={url} hx-target="#tabContainer">{label}</button>    
+  }
+}

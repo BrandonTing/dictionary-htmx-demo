@@ -4,6 +4,8 @@ import (
 	"net/http"
 
 	"dictionary-htmx-demo/cmd/web"
+	"dictionary-htmx-demo/cmd/web/list"
+	"dictionary-htmx-demo/cmd/web/test"
 
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
@@ -16,11 +18,13 @@ func (s *Server) RegisterRoutes() http.Handler {
 	e.Use(middleware.Recover())
 	fileServer := http.FileServer(http.FS(web.Files))
 	e.GET("/assets/*", echo.WrapHandler(fileServer))
+	e.GET("/list", echo.WrapHandler(templ.Handler(list.List())))
+	e.GET("/test", echo.WrapHandler(templ.Handler(test.Test())))
 
-	e.GET("/web", echo.WrapHandler(templ.Handler(web.HelloForm())))
-	e.POST("/hello", echo.WrapHandler(http.HandlerFunc(web.HelloWebHandler)))
+	// e.GET("/web", echo.WrapHandler(templ.Handler(web.HelloForm())))
+	// e.POST("/hello", echo.WrapHandler(http.HandlerFunc(web.HelloWebHandler)))
 
-	e.GET("/", s.HelloWorldHandler)
+	// e.GET("/", s.HelloWorldHandler)
 
 	// e.GET("/health", s.healthHandler)
 
