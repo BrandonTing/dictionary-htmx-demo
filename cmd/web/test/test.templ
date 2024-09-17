@@ -1,12 +1,11 @@
 package test
 
 import (
-  "dictionary-htmx-demo/cmd/web"
 	"dictionary-htmx-demo/cmd/web/tabs"
 )
 
 templ Test() {
-	@web.Base() {
-    @tabs.Tabs("/test")
-	}
+  @tabs.Tabs("/test") { 
+    test content    
+  }
 }

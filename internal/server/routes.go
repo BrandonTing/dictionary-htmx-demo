@@ -18,8 +18,11 @@ func (s *Server) RegisterRoutes() http.Handler {
 	e.Use(middleware.Recover())
 	fileServer := http.FileServer(http.FS(web.Files))
 	e.GET("/assets/*", echo.WrapHandler(fileServer))
+	e.GET("/listPage", echo.WrapHandler(templ.Handler(list.ListPage())))
 	e.GET("/list", echo.WrapHandler(templ.Handler(list.List())))
-	e.GET("/test", echo.WrapHandler(templ.Handler(test.Test())))
+	e.GET("/test", echo.WrapHandler(http.HandlerFunc(test.TestTabHandler)))
+
+	// e.GET("/test", echo.WrapHandler(templ.Handler(test.Test())))
 
 	// e.GET("/web", echo.WrapHandler(templ.Handler(web.HelloForm())))
 	// e.POST("/hello", echo.WrapHandler(http.HandlerFunc(web.HelloWebHandler)))

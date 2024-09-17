@@ -5,12 +5,15 @@ templ Tabs(activeTab string) {
     @Tab("單字列表", activeTab, "/list")
     @Tab("測驗", activeTab, "/test")
   </div>
+  <div hx-swap-oob="innerHTML:#content" id="content">
+    { children... }
+  </div>
 }
 
 templ Tab(label string, activeTab string, url string) {
   if activeTab == url {
     <span class="text-green-700 border-b border-b-green-700">{label}</span>
   } else {
-    <button hx-get={url} hx-target="#tabContainer">{label}</button>    
+    <button hx-get={url} hx-target="#tabContainer" hx-swap="outerHTML">{label}</button>    
   }
 }

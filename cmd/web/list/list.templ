@@ -1,12 +1,18 @@
 package list
 
 import (
-  "dictionary-htmx-demo/cmd/web"
 	"dictionary-htmx-demo/cmd/web/tabs"
+	"dictionary-htmx-demo/cmd/web"
 )
 
+templ ListPage() {
+  @web.Base(){
+    @List()
+  }
+}
+
 templ List() {
-	@web.Base() {
-    @tabs.Tabs("/list")
-	}
+  @tabs.Tabs("/list") { 
+    list content    
+  }
 }
