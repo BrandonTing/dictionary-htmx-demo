@@ -7,7 +7,6 @@ import (
 	"dictionary-htmx-demo/cmd/web/list"
 	"dictionary-htmx-demo/cmd/web/test"
 
-	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -18,8 +17,9 @@ func (s *Server) RegisterRoutes() http.Handler {
 	e.Use(middleware.Recover())
 	fileServer := http.FileServer(http.FS(web.Files))
 	e.GET("/assets/*", echo.WrapHandler(fileServer))
-	e.GET("/listPage", echo.WrapHandler(templ.Handler(list.ListPage())))
-	e.GET("/list", echo.WrapHandler(templ.Handler(list.List())))
+	e.GET("/get-list-page", echo.WrapHandler(http.HandlerFunc(list.ListPageHandler)))
+	e.GET("/switch-to-list", echo.WrapHandler(http.HandlerFunc(list.ListHandler)))
+	e.GET("/get-list-content", echo.WrapHandler(http.HandlerFunc(list.GetListContentHandler)))
 	e.GET("/test", echo.WrapHandler(http.HandlerFunc(test.TestTabHandler)))
 
 	// e.GET("/test", echo.WrapHandler(templ.Handler(test.Test())))

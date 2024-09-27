@@ -3,16 +3,36 @@ package list
 import (
 	"dictionary-htmx-demo/cmd/web/tabs"
 	"dictionary-htmx-demo/cmd/web"
+	"dictionary-htmx-demo/internal/store"
+	"time"
 )
 
-templ ListPage() {
+templ ListPage(list store.Dictionary) {
   @web.Base(){
-    @List()
+    @List(list)
   }
 }
 
-templ List() {
-  @tabs.Tabs("/list") { 
-    list content    
+templ List(list store.Dictionary) {
+  @tabs.Tabs("/list") {
+    @ListContent(list)
   }
+}
+
+templ ListContent(list store.Dictionary) {
+  <div>
+    <button class="px-2 py-1 border rounded" hx-get="/get-list-content">refresh at: {time.Now().Format("2006-01-02 15:04:05")}</button>
+    <ul>
+      for _, word := range list.List {
+        <li class="flex justify-center gap-5">
+          <span>
+            { word.Word }
+          </span>
+          <span>
+            { word.Example }
+          </span>
+        </li>
+      } 
+    </ul>
+  </div>
 }

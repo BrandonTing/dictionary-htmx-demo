@@ -2,10 +2,10 @@ package tabs
 
 templ Tabs(activeTab string) {
   <div class="flex items-center justify-center w-full h-10 gap-5 text-black bg-gray-300" id="tabContainer">
-    @Tab("單字列表", activeTab, "/list")
+    @Tab("單字列表", activeTab, "/switch-to-list")
     @Tab("測驗", activeTab, "/test")
   </div>
-  <div hx-swap-oob="innerHTML:#content" id="content">
+  <div hx-swap-oob="innerHTML:#content" id="content" class="flex justify-center py-2">
     { children... }
   </div>
 }
