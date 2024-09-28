@@ -22,17 +22,29 @@ templ List(list store.Dictionary) {
 templ ListContent(list store.Dictionary) {
   <div>
     <button class="px-2 py-1 border rounded" hx-get="/get-list-content">refresh at: {time.Now().Format("2006-01-02 15:04:05")}</button>
-    <ul>
-      for _, word := range list.List {
-        <li class="flex justify-center gap-5">
-          <span>
-            { word.Word }
-          </span>
-          <span>
-            { word.Example }
-          </span>
-        </li>
-      } 
-    </ul>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">單字</th>
+          <th scope="col">例句</th>
+          <th scope="col">刪除</th>
+        </tr>
+      </thead>
+      <tbody>
+        for _, word := range list.List {
+          <tr>
+            <th  class="px-2 py-1">
+              { word.Word }
+            </th>
+            <td class="px-2 py-1">
+              { word.Example }
+            </td>
+            <td class="px-2 py-1">
+              <button class="px-2 py-1 border rounded" hx-delete="delete-word">刪除</button>
+            </td>
+          </tr>
+        } 
+      </tbody>
+    </table>
   </div>
 }
