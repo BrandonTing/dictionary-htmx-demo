@@ -35,3 +35,8 @@ func GetListContentHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("Error rendering in ListHandler: %e", err)
 	}
 }
+
+func DeleteWord(w http.ResponseWriter, r *http.Request) {
+	word := r.FormValue("word")
+	store.DeleteWord(word)
+}

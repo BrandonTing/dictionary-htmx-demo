@@ -12,26 +12,25 @@ type Vocabulary struct {
 var Basic_Dictionary Dictionary
 
 func GetDictionary() Dictionary {
-	Basic_Dictionary.AddWord("test", "test is hard")
 	return Basic_Dictionary
 }
 
-func (d *Dictionary) AddWord(word string, example string) {
-	d.List = append(d.List, Vocabulary{
+func AddWord(word string, example string) {
+	Basic_Dictionary.List = append(Basic_Dictionary.List, Vocabulary{
 		Word:    word,
 		Example: example,
 	})
 }
 
-func (d *Dictionary) DeleteWord(word string) {
+func DeleteWord(word string) {
 	index := 0
-	for i := 0; i < len(d.List); i++ {
-		if d.List[i].Word == word {
+	for i := 0; i < len(Basic_Dictionary.List); i++ {
+		if Basic_Dictionary.List[i].Word == word {
 			index = i
 			break
 		}
 	}
-	removeAtIndex(d.List, index)
+	Basic_Dictionary.List = removeAtIndex(Basic_Dictionary.List, index)
 }
 
 func removeAtIndex(source []Vocabulary, index int) []Vocabulary {
@@ -40,7 +39,6 @@ func removeAtIndex(source []Vocabulary, index int) []Vocabulary {
 
 	// STEP 2：把要移除的元素換到最後一個位置
 	source[index], source[lastIndex] = source[lastIndex], source[index]
-
 	// STEP 3：除了最後一個位置的元素其他回傳出去
 	return source[:lastIndex]
 }

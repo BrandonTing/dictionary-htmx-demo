@@ -5,6 +5,7 @@ import (
 	"dictionary-htmx-demo/cmd/web"
 	"dictionary-htmx-demo/internal/store"
 	"time"
+	"fmt"
 )
 
 templ ListPage(list store.Dictionary) {
@@ -32,7 +33,7 @@ templ ListContent(list store.Dictionary) {
       </thead>
       <tbody>
         for _, word := range list.List {
-          <tr>
+          <tr id={fmt.Sprintf("row_%s", word.Word)}>
             <th  class="px-2 py-1">
               { word.Word }
             </th>
@@ -40,7 +41,10 @@ templ ListContent(list store.Dictionary) {
               { word.Example }
             </td>
             <td class="px-2 py-1">
-              <button class="px-2 py-1 border rounded" hx-delete="delete-word">刪除</button>
+              <form hx-delete="delete-word" hx-target={fmt.Sprintf("#row_%s", word.Word)}>
+                <input value={word.Word} name="word" class="hidden" />
+                <button class="px-2 py-1 border rounded"  type="submit">刪除</button>
+              </form>
             </td>
           </tr>
         } 

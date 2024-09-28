@@ -20,6 +20,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 	e.GET("/get-list-page", echo.WrapHandler(http.HandlerFunc(list.ListPageHandler)))
 	e.GET("/switch-to-list", echo.WrapHandler(http.HandlerFunc(list.ListHandler)))
 	e.GET("/get-list-content", echo.WrapHandler(http.HandlerFunc(list.GetListContentHandler)))
+	e.DELETE("/delete-word", echo.WrapHandler(http.HandlerFunc(list.DeleteWord)))
 	e.GET("/test", echo.WrapHandler(http.HandlerFunc(test.TestTabHandler)))
 
 	// e.GET("/test", echo.WrapHandler(templ.Handler(test.Test())))
