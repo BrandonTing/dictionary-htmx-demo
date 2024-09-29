@@ -62,3 +62,26 @@ func AddWordHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("Error rendering in AddWordHandler: %e", err)
 	}
 }
+
+func GetUpdateWordFormHandler(w http.ResponseWriter, r *http.Request) {
+	word := r.FormValue("word")
+	example := r.FormValue("example")
+	component := UpdateWordForm(word, example)
+	err := component.Render(r.Context(), w)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		log.Fatalf("Error rendering in GetUpdateWordFormHandler: %e", err)
+	}
+}
+
+func UpdateWordHandler(w http.ResponseWriter, r *http.Request) {
+	word := r.FormValue("word")
+	example := r.FormValue("example")
+	store.UpdateSentence(word, example)
+	component := Row(store.Vocabulary{Word: word, Example: example})
+	err := component.Render(r.Context(), w)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		log.Fatalf("Error rendering in AddWordHandler: %e", err)
+	}
+}

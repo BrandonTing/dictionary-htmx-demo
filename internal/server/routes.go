@@ -5,7 +5,6 @@ import (
 
 	"dictionary-htmx-demo/cmd/web"
 	"dictionary-htmx-demo/cmd/web/list"
-	"dictionary-htmx-demo/cmd/web/test"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -22,19 +21,10 @@ func (s *Server) RegisterRoutes() http.Handler {
 	e.GET("/get-list-content", echo.WrapHandler(http.HandlerFunc(list.GetListContentHandler)))
 	e.GET("/get-add-word-form", echo.WrapHandler(http.HandlerFunc(list.GetAddWordFormHandler)))
 	e.POST("/add-word", echo.WrapHandler(http.HandlerFunc(list.AddWordHandler)))
+	e.GET("/get-update-word-form", echo.WrapHandler(http.HandlerFunc(list.GetUpdateWordFormHandler)))
+	e.PUT("/update-word", echo.WrapHandler(http.HandlerFunc(list.UpdateWordHandler)))
 	e.DELETE("/delete-word", echo.WrapHandler(http.HandlerFunc(list.DeleteWord)))
 	e.DELETE("/delete-component", s.EmptyHandler)
-
-	e.GET("/test", echo.WrapHandler(http.HandlerFunc(test.TestTabHandler)))
-
-	// e.GET("/test", echo.WrapHandler(templ.Handler(test.Test())))
-
-	// e.GET("/web", echo.WrapHandler(templ.Handler(web.HelloForm())))
-	// e.POST("/hello", echo.WrapHandler(http.HandlerFunc(web.HelloWebHandler)))
-
-	// e.GET("/", s.HelloWorldHandler)
-
-	// e.GET("/health", s.healthHandler)
 
 	return e
 }

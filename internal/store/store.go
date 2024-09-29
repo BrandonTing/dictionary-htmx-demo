@@ -22,15 +22,14 @@ func AddWord(word string, example string) {
 	})
 }
 
+func UpdateSentence(word string, example string) {
+	index := Basic_Dictionary.getIndexOfWord(word)
+	Basic_Dictionary.List[index].Example = example
+}
+
 func DeleteWord(word string) {
-	index := 0
-	for i := 0; i < len(Basic_Dictionary.List); i++ {
-		if Basic_Dictionary.List[i].Word == word {
-			index = i
-			break
-		}
-	}
-	
+	index := Basic_Dictionary.getIndexOfWord(word)
+
 	Basic_Dictionary.List = removeAtIndex(Basic_Dictionary.List, index)
 }
 
@@ -42,4 +41,15 @@ func removeAtIndex(source []Vocabulary, index int) []Vocabulary {
 	source[index], source[lastIndex] = source[lastIndex], source[index]
 	// STEP 3：除了最後一個位置的元素其他回傳出去
 	return source[:lastIndex]
+}
+
+func (d *Dictionary) getIndexOfWord(word string) int {
+	index := 0
+	for i := 0; i < len(Basic_Dictionary.List); i++ {
+		if Basic_Dictionary.List[i].Word == word {
+			index = i
+			break
+		}
+	}
+	return index
 }

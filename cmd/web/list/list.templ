@@ -22,8 +22,33 @@ templ List(list store.Dictionary) {
         新增
       </button>
       <div id="add-word-form-container"></div>
+      <div id="update-word-form-container"></div>
     </div>
   }
+}
+
+templ Row(volcabulary store.Vocabulary) {
+  <tr id={fmt.Sprintf("row_%s", volcabulary.Word)} hx-swap-oob={fmt.Sprintf("innerHTML#row_%s", volcabulary.Word)}>
+    <th  class="px-2 py-1">
+      { volcabulary.Word }
+    </th>
+    <td class="px-2 py-1">
+      { volcabulary.Example }
+    </td>
+    <td class="px-2 py-1">
+      <form hx-target="#update-word-form-container" hx-get="/get-update-word-form">
+        <input value={volcabulary.Word} name="word" class="hidden" />
+        <input value={volcabulary.Example} name="example" class="hidden" />
+        <button class="px-2 py-1 border rounded"  type="submit">編輯</button>
+      </form>
+    </td>
+    <td class="px-2 py-1">
+      <form hx-delete="delete-word" hx-target={fmt.Sprintf("#row_%s", volcabulary.Word)}>
+        <input value={volcabulary.Word} name="word" class="hidden" />
+        <button class="px-2 py-1 border rounded"  type="submit">刪除</button>
+      </form>
+    </td>
+  </tr>
 }
 
 templ ListContent(list store.Dictionary) {
@@ -35,25 +60,13 @@ templ ListContent(list store.Dictionary) {
           <tr>
             <th scope="col">單字</th>
             <th scope="col">例句</th>
+            <th scope="col">編輯例句</th>
             <th scope="col">刪除</th>
           </tr>
         </thead>
         <tbody>
           for _, word := range list.List {
-            <tr id={fmt.Sprintf("row_%s", word.Word)}>
-              <th  class="px-2 py-1">
-                { word.Word }
-              </th>
-              <td class="px-2 py-1">
-                { word.Example }
-              </td>
-              <td class="px-2 py-1">
-                <form hx-delete="delete-word" hx-target={fmt.Sprintf("#row_%s", word.Word)}>
-                  <input value={word.Word} name="word" class="hidden" />
-                  <button class="px-2 py-1 border rounded"  type="submit">刪除</button>
-                </form>
-              </td>
-            </tr>
+            @Row(word)
           } 
         </tbody>
       </table>        
@@ -62,7 +75,6 @@ templ ListContent(list store.Dictionary) {
     }
   </div>
 }
-
 
 templ EdwardForm() {
   <div class="fixed top-0 bottom-0 left-0 right-0 flex items-start justify-center pt-40 bg-black bg-opacity-25" id="add-word-form">  
@@ -79,6 +91,27 @@ templ EdwardForm() {
       <div class="flex justify-center gap-2">
         <button hx-delete="/delete-component" hx-target="#add-word-form" hx-swap="delete">取消</button>
         <button type="submit">新增</button>
+      </div>
+    </form>
+  </div>
+}
+
+templ UpdateWordForm(word string, example string) {
+  <div class="fixed top-0 bottom-0 left-0 right-0 flex items-start justify-center pt-40 bg-black bg-opacity-25" id="update-word-form">  
+    <form hx-trigger="submit" class="flex flex-col gap-2 px-4 py-2 bg-white" hx-put="update-word" hx-swap="delete" hx-target="#update-word-form">
+      <div>
+        <label for="word">單字</label>
+        <input class="border" type="text" value={word} disabled />
+        <input class="hidden border" type="text" name="word" value={word} />
+      </div>
+      <div>
+        <label for="example">例句</label>
+        <textarea class="border" name="example" required >{example}</textarea>
+      </div>
+
+      <div class="flex justify-center gap-2">
+        <button hx-delete="/delete-component" hx-target="#update-word-form" hx-swap="delete">取消</button>
+        <button type="submit">更新</button>
       </div>
     </form>
   </div>
