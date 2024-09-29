@@ -22,7 +22,7 @@ templ List(list store.Dictionary) {
 
 templ ListContent(list store.Dictionary) {
   <div>
-    <button class="px-2 py-1 border rounded" hx-get="/get-list-content">refresh at: {time.Now().Format("2006-01-02 15:04:05")}</button>
+    <button class="px-2 py-1 border rounded" hx-get="/get-list-content" hx-trigger="mouseover once" hx-target="closest div" hx-swap="outerhtml">refresh at: {time.Now().Format("2006-01-02 15:04:05")}</button>
     <table>
       <thead>
         <tr>
