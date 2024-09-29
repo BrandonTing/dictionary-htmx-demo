@@ -20,7 +20,11 @@ func (s *Server) RegisterRoutes() http.Handler {
 	e.GET("/get-list-page", echo.WrapHandler(http.HandlerFunc(list.ListPageHandler)))
 	e.GET("/switch-to-list", echo.WrapHandler(http.HandlerFunc(list.ListHandler)))
 	e.GET("/get-list-content", echo.WrapHandler(http.HandlerFunc(list.GetListContentHandler)))
+	e.GET("/get-add-word-form", echo.WrapHandler(http.HandlerFunc(list.GetAddWordFormHandler)))
+	e.POST("/add-word", echo.WrapHandler(http.HandlerFunc(list.AddWordHandler)))
 	e.DELETE("/delete-word", echo.WrapHandler(http.HandlerFunc(list.DeleteWord)))
+	e.DELETE("/delete-component", s.EmptyHandler)
+
 	e.GET("/test", echo.WrapHandler(http.HandlerFunc(test.TestTabHandler)))
 
 	// e.GET("/test", echo.WrapHandler(templ.Handler(test.Test())))
@@ -46,3 +50,7 @@ func (s *Server) HelloWorldHandler(c echo.Context) error {
 // func (s *Server) healthHandler(c echo.Context) error {
 // 	return c.JSON(http.StatusOK, s.db.Health())
 // }
+
+func (s *Server) EmptyHandler(c echo.Context) error {
+	return c.String(http.StatusOK, "Ok")
+}

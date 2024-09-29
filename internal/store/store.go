@@ -30,6 +30,7 @@ func DeleteWord(word string) {
 			break
 		}
 	}
+	
 	Basic_Dictionary.List = removeAtIndex(Basic_Dictionary.List, index)
 }
 

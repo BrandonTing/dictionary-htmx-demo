@@ -1,7 +1,6 @@
 package server
 
 import (
-	"dictionary-htmx-demo/internal/store"
 	"fmt"
 	"net/http"
 	"os"
@@ -34,7 +33,5 @@ func NewServer() *http.Server {
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 30 * time.Second,
 	}
-
-	store.AddWord("test", "test is hard")
 	return server
 }
